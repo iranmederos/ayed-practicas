@@ -1,6 +1,7 @@
 package tp.practica2.ejercicio6;
 
-import org.ayed.ejercicio1y2.BinaryTree;
+import tp.practica2.ejercicio1y2.BinaryTree;
+
 
 public class Transformacion {
 //    Cree una clase Java llamada Transformacion que tenga como variable de instancia un árbol

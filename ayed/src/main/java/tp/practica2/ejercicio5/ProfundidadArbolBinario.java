@@ -1,6 +1,7 @@
 package tp.practica2.ejercicio5;
 
-import org.ayed.ejercicio1y2.BinaryTree;
+import tp.practica2.ejercicio1y2.BinaryTree;
+
 
 public class ProfundidadArbolBinario {
     public BinaryTree<Integer> arb;

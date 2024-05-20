@@ -1,6 +1,6 @@
 package tp.practica2.ejercicio3;
 
-import org.ayed.ejercicio1y2.BinaryTree;
+import tp.practica2.ejercicio1y2.BinaryTree;
 
 import java.util.ArrayList;
 import java.util.List;

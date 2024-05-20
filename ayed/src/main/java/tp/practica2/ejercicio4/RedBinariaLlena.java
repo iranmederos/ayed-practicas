@@ -1,6 +1,6 @@
 package tp.practica2.ejercicio4;
 
-import org.ayed.ejercicio1y2.BinaryTree;
+import tp.practica2.ejercicio1y2.BinaryTree;
 
 public class RedBinariaLlena {
     private final BinaryTree<Integer> integerBinaryTree;

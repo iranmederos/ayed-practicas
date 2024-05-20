@@ -1,11 +1,6 @@
 package tp.practica2;
-
-import org.ayed.ejercicio1y2.BinaryTree;
-import org.ayed.ejercicio3.ContadorArbol;
-import org.ayed.ejercicio4.RedBinariaLlena;
-import org.ayed.ejercicio5.ProfundidadArbolBinario;
-import org.ayed.ejercicio6.Transformacion;
-import org.ayed.ejercicio7.ParcialArboles;
+import tp.practica2.ejercicio1y2.BinaryTree;
+import tp.practica2.ejercicio7.ParcialArboles;
 
 public class Main {
     public static void main(String[] args) {
