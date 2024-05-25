@@ -1,6 +1,7 @@
-package tp.practica3.ejercicio1;
+package tp.practica3.ejercicio1y2y3y5;
 
 import tp.practica1.Queue;
+import tp.practica3.ejercicio4.AreaEmpresa;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -96,7 +97,7 @@ public class GeneralTree<T> {
                 level++;
             }
             return -1;
-        }else
+        } else
             return -1;
     }
 
@@ -110,15 +111,15 @@ public class GeneralTree<T> {
             while (!cola.isEmpty()) {
                 queueSize = cola.size();
                 for (int i = 0; i < queueSize; ++i) {
-                    size = Math.max(size,queueSize);
+                    size = Math.max(size, queueSize);
                     currentNodo = cola.dequeue();
-                    if(currentNodo.hasChildren())
+                    if (currentNodo.hasChildren())
                         for (GeneralTree<T> child : currentNodo.getChildren())
                             cola.enqueue(child);
                 }
             }
             return size;
-        }else
+        } else
             return 0;
     }
 
@@ -192,4 +193,38 @@ public class GeneralTree<T> {
         }
         return result;
     }
-}
+
+    //ejercicio 5
+    public boolean esAncestro(T a, T b) {
+        boolean esAncestro = false;
+        GeneralTree<T> aTree = finder(a, this);
+        GeneralTree<T> bTree = null;
+        if (aTree != null)
+            bTree = finder(b, aTree);
+        if (!(aTree == null) && !(bTree == null)) {
+            esAncestro = true;
+        }
+        return esAncestro;
+    }
+
+    public GeneralTree<T> finder(T dato, GeneralTree<T> tree) {
+        if (tree.getData().equals(dato))
+            return tree;
+
+        GeneralTree<T> aux = null;
+        if (tree.hasChildren()) {
+            List<GeneralTree<T>> children = tree.getChildren();
+            for (GeneralTree<T> child : children) {
+                if (child.getData().equals(dato)) {
+                    aux = child;
+                    break;
+                }
+                aux = child.finder(dato, child);
+                if (aux != null)
+                    return aux;
+            }
+        }
+            return aux;
+        }
+
+    }

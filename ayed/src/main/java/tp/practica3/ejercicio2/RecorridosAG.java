@@ -1,7 +1,7 @@
 package tp.practica3.ejercicio2;
 
 import tp.practica1.Queue;
-import tp.practica3.ejercicio1.GeneralTree;
+import tp.practica3.ejercicio1y2y3y5.GeneralTree;
 
 import java.util.LinkedList;
 import java.util.List;
