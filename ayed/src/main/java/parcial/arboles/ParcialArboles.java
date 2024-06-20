@@ -47,7 +47,6 @@ public class ParcialArboles {
                         for(GeneralTree<Integer> child : aux){
                             nodes.add(child.getData());
                         }
-                        break;
                     }
                 }else if(current == null) {
                     cantNodesNextLevel=0;
