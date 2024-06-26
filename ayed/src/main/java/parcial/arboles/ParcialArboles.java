@@ -95,7 +95,7 @@ public class ParcialArboles {
         ag6.setChildren(Arrays.asList(ag13, ag14, ag15));
 
         ParcialArboles p = new ParcialArboles(ag);
-        List<Integer> nodes = p.nivel(3);
+        List<Integer> nodes = p.nivel(0);
         System.out.println(nodes);
     }
 }
