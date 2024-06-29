@@ -1,53 +1,70 @@
-package parcial.arboles;
+package parcial.arboles.primerafecha;
 
-import tp.practica1.Queue;
 import tp.practica3.ejercicio1y2y3y5.GeneralTree;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import tp.practica1.Queue;
 
-public class ParcialArbolesRefactor {
+public class ParcialArboles {
     private GeneralTree<Integer> ag;
 
-    public ParcialArbolesRefactor(GeneralTree<Integer> ag) {
+    public ParcialArboles() {}
+
+    public ParcialArboles(GeneralTree<Integer> ag) {
         this.ag = ag;
     }
 
-    public List<Integer> nivel (int num) {
-        List<GeneralTree<Integer>> nodes = new ArrayList<>();
+    public List<Integer> nivel (int num){
+        List<Integer> nodes = new ArrayList<>();
         Queue<GeneralTree<Integer>> queue = new Queue<>();
         GeneralTree<Integer> current = this.ag;
         int cantChildren = current.getChildren().size();
-        int cantNodesLevel = 1;
-        if (cantChildren >= num) {
-            nodes.add(current);
-        } else {
+
+        if(cantChildren == num){
+            nodes.add(current.getData());
+        }else {
+            List<GeneralTree<Integer>> aux = new ArrayList<>();
+            Queue<GeneralTree<Integer>> auxQueue = new Queue<>();
+            GeneralTree<Integer> auxNode;
             queue.enqueue(current);
             queue.enqueue(null);
+            int cantNodesNextLevel = current.getChildren().size();
             boolean fin = false;
-            while (!queue.isEmpty() && !fin) {
+            while(!queue.isEmpty() && !fin){
                 current = queue.dequeue();
-                if (current == null)
-                    cantNodesLevel = queue.size();
-                if (current != null && current.hasChildren()) {
-                    for (GeneralTree<Integer> child : current.getChildren())
+                if(current != null && current.hasChildren()){
+                    List<GeneralTree<Integer>> children = current.getChildren();
+                    for(GeneralTree<Integer> child : children){
                         queue.enqueue(child);
-                    if (current.getChildren().size() >= num) {
-                        nodes.add(current);
-                        cantNodesLevel--;
+                        auxQueue.enqueue(child);
+                        if(child.getChildren().size() == num){
+                            aux.add(child);
+                        }
                     }
-                } else if (current == null) {
-                    nodes = new ArrayList<>();
-                    queue.enqueue(null);
+                    if(aux.size() == cantNodesNextLevel){
+                        for(GeneralTree<Integer> child : aux){
+                            nodes.add(child.getData());
+                        }
+                        fin = true;
+                    }
+                }else if(current == null) {
+                    cantNodesNextLevel=0;
+                    aux = new ArrayList<>();
+                    queue.enqueue(current);
+                    while(!auxQueue.isEmpty()){
+                        auxNode= auxQueue.dequeue();
+                        cantNodesNextLevel += auxNode.getChildren().size();
+                    }
                 }
-                if (cantNodesLevel == 0) {
-                    fin = true;
-                }
+                if (cantNodesNextLevel == 0)
+                        fin= true;
             }
         }
-        return nodes.stream().map(GeneralTree::getData).toList();
+        return nodes;
     }
+
     public static void main(String[] args) {
         //nodo=10, hijos=8,-5
         GeneralTree<Integer> ag = new GeneralTree<>(10);
@@ -77,8 +94,8 @@ public class ParcialArbolesRefactor {
         GeneralTree<Integer> ag15 = new GeneralTree<>(8);
         ag6.setChildren(Arrays.asList(ag13, ag14, ag15));
 
-        ParcialArbolesRefactor p = new ParcialArbolesRefactor(ag);
-        List<Integer> nodes = p.nivel(0);
+        ParcialArboles p = new ParcialArboles(ag);
+        List<Integer> nodes = p.nivel(3);
         System.out.println(nodes);
     }
 }
