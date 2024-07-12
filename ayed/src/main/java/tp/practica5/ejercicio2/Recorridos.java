@@ -1,18 +1,20 @@
 package tp.practica5.ejercicio2;
 
+import tp.practica1.Queue;
 import tp.practica5.ejercicio1.Edge;
 import tp.practica5.ejercicio1.Graph;
 import tp.practica5.ejercicio1.Vertex;
 import tp.practica5.ejercicio1.adjList.AdjListGraph;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Recorridos<T> {
 
     public List<T> dfs(Graph<T> grafo){
         Vertex<T> origen = grafo.getVertex(0);
-        boolean[] visited = new boolean[grafo.getVertices().size()];
+        boolean[] visited = new boolean[grafo.getSize()];
         List<T> res = new ArrayList<>();
         dfsRecorrido(origen, visited, res, grafo);
         return res;
@@ -28,6 +30,29 @@ public class Recorridos<T> {
                 dfsRecorrido(neighbor.getTarget(), visited, res, grafo);
             }
         }
+    }
+
+    public List<T> bfs(Graph<T> grafo){
+        Vertex<T> origen = grafo.getVertex(0);
+        Queue<Vertex<T>> vertices = new Queue<>();
+        List<Edge<T>> neighbors;
+        List<T> res = new ArrayList<>();
+        boolean[] visited = new boolean[grafo.getSize()];
+
+        vertices.enqueue(origen);
+
+        while(!vertices.isEmpty()){
+            Vertex<T> vertAux = vertices.dequeue();
+            neighbors = grafo.getEdges(vertAux);
+            if (!visited[vertAux.getPosition()]) {
+                res.add(vertAux.getData());
+                visited[vertAux.getPosition()] = true;
+                for (Edge<T> neighbor: neighbors){
+                    vertices.enqueue(neighbor.getTarget());
+                }
+            }
+        }
+        return res;
     }
 
 
@@ -58,6 +83,12 @@ public class Recorridos<T> {
         ciudades.connect(v1, v6);
 
         for (String ciudad : rec.dfs(ciudades)){
+            System.out.println(ciudad);
+        }
+
+        System.out.println("-----------------");
+
+        for (String ciudad : rec.bfs(ciudades)){
             System.out.println(ciudad);
         }
     }
